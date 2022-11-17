@@ -1,6 +1,6 @@
 #include <ant_lib.hpp>
 
-int main(int argc_, char *argv_){
+int main(int argc_, char *argv_[]){
 	LangtonAnt ant(1024);
 
 	while(true){
@@ -17,6 +17,8 @@ int main(int argc_, char *argv_){
 	}
 
 	ant.displayShape("test.png");
+
+	ant.checkLoop(0,2);
 
 	ant.finishAnt();
 

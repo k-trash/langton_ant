@@ -197,3 +197,43 @@ void LangtonAnt::finishAnt(void){
 	}
 	delete[] field;
 }
+
+int LangtonAnt::checkLoop(uint32_t start_branch_, uint32_t start_loop_){
+	uint32_t loop_len, branch_len;
+	bool loop_flag = false;
+
+	for(loop_len=start_loop_; loop_len<((steps.size()-start_branch_)>>2); loop_len++){
+		if(std::equal(steps.end()-loop_len, steps.end(), steps.end()-(loop_len<<1))){
+			if(std::equal(steps.end()-loop_len, steps.end(), steps.end()-loop_len*3)){
+				if(std::equal(steps.end()-loop_len, steps.end(), steps.end()-(loop_len<<2))){
+					if(std::equal(steps.end()-loop_len, steps.end(), steps.end()-loop_len*5)){
+						loop_flag = true;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	if(!loop_flag){
+		std::cout << "No loop found." << std::endl;
+
+		return 1;
+	}
+
+	for(branch_len=start_branch_; branch_len<steps.size()-(loop_len<<2); branch_len++){
+		if(std::equal(steps.begin()+branch_len, steps.begin()+branch_len+loop_len, steps.begin()+branch_len+loop_len)){
+			if(std::equal(steps.begin()+branch_len, steps.begin()+branch_len+loop_len, steps.begin()+branch_len+(loop_len<<1))){
+				if(std::equal(steps.begin()+branch_len, steps.begin()+branch_len+loop_len, steps.begin()+branch_len+loop_len*3)){
+					if(std::equal(steps.begin()+branch_len, steps.begin()+branch_len+loop_len, steps.begin()+branch_len+(loop_len<<2))){
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	std::cout << branch_len+1 << '\t' << loop_len << std::endl;
+
+	return 0;
+}
