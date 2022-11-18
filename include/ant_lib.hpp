@@ -19,10 +19,11 @@ class LangtonAnt{
 		int displayShape(std::string file_name_);
 		int checkLoop(uint32_t start_branch_, uint32_t start_loop);
 		void finishAnt(void);
+		void resetAnt(void);
 		
+		bool **field;
 		uint8_t direction;
 	private:
-		bool **field;
 		uint16_t field_size;
 		std::vector<uint8_t> steps;
 		uint16_t pos_x, pos_y;

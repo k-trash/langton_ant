@@ -196,6 +196,20 @@ void LangtonAnt::finishAnt(void){
 		delete[] field[i];
 	}
 	delete[] field;
+
+	steps.clear();
+}
+
+void LangtonAnt::resetAnt(void){
+	steps.clear();
+
+	for(uint16_t i=0; i<field_size; i++){
+		for(uint16_t j=0; j<field_size; j++){
+			field[i][j] = 0;
+		}
+	}
+
+	pos_x = pos_y = field_size >> 1;
 }
 
 int LangtonAnt::checkLoop(uint32_t start_branch_, uint32_t start_loop_){
