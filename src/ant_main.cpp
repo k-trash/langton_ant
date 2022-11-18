@@ -27,6 +27,7 @@ int main(int argc_, char *argv_[]){
 				break;
 			}
 		}else{
+			ant.updateField();
 			if(ant.moveAnt(jump_step, ant.direction) == 1){
 				break;
 			}
