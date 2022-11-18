@@ -207,7 +207,7 @@ void LangtonAnt::finishAnt(void){
 }
 
 int LangtonAnt::checkLoop(uint32_t start_branch_, uint32_t start_loop_){
-	uint32_t loop_len, branch_len;
+	uint64_t loop_len, branch_len;
 	bool loop_flag = false;
 
 	for(loop_len=start_loop_; loop_len<((steps.size()-start_branch_)>>2); loop_len++){
