@@ -27,6 +27,8 @@ LangtonAnt::LangtonAnt(uint16_t field_size_){
 	}
 
 	pos_x = pos_y = field_size >> 1;
+
+	direction = 0;
 }
 
 int LangtonAnt::moveAnt(uint16_t step_, uint8_t direction_){
@@ -188,6 +190,8 @@ int LangtonAnt::displayShape(std::string file_name_){
 
 	fclose(image_file);
 
+	png_destroy_write_struct(&image_ptr, &info_ptr);
+
 	return 0;
 }
 
@@ -197,11 +201,11 @@ void LangtonAnt::finishAnt(void){
 	}
 	delete[] field;
 
-	steps.clear();
+	steps.erase(steps.begin(), steps.end());
 }
 
 void LangtonAnt::resetAnt(void){
-	steps.clear();
+	steps.erase(steps.begin(), steps.end());
 
 	for(uint16_t i=0; i<field_size; i++){
 		for(uint16_t j=0; j<field_size; j++){
@@ -210,10 +214,12 @@ void LangtonAnt::resetAnt(void){
 	}
 
 	pos_x = pos_y = field_size >> 1;
+
+	direction = 0;
 }
 
 int LangtonAnt::checkLoop(uint32_t start_branch_, uint32_t start_loop_){
-	uint32_t loop_len, branch_len;
+	uint64_t loop_len, branch_len;
 	bool loop_flag = false;
 
 	for(loop_len=start_loop_; loop_len<((steps.size()-start_branch_)>>2); loop_len++){
