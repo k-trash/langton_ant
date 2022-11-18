@@ -20,7 +20,7 @@ int main(int argc_, char *argv_[]){
 		ant.field[SIZE>>1][(SIZE>>1)-1] = (bool)(0x01 & (i >> 4));
 		ant.field[SIZE>>1][(SIZE>>1)+1] = (bool)(0x01 & (i >> 3));
 		ant.field[(SIZE>>1)+1][(SIZE>>1)-1] = (bool)(0x01 & (i >> 2));
-		ant.field[(SIZE>>1)+1][SIZE>>1] = (0x01 & (i >> 1) == 1) ? true : false;
+		ant.field[(SIZE>>1)+1][SIZE>>1] = (bool)(0x01 & (i >> 1));
 		ant.field[(SIZE>>1)+1][(SIZE>>1)+1] = (bool)(0x01 & i);
 
 		while(true){

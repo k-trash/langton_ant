@@ -3,8 +3,8 @@
 #include <string>
 #include <vector>
 
-#define RIGHT 0
-#define LEFT 1
+#define LEFT 0
+#define RIGHT 1
 #define BLACK 0
 #define WHITE 1
 

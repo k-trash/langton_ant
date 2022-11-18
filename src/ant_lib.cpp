@@ -38,47 +38,53 @@ int LangtonAnt::moveAnt(uint16_t step_, uint8_t direction_){
 		return 1;
 	}
 
-	switch(direction_){
-		case 0:
-			if(pos_y < step_){
-				std::cout << "Field overflow." << std::endl;
+	try{
+		switch(direction_){
+			case 0:
+				if(pos_y < step_){
+					std::cout << "Field overflow." << std::endl;
 
-				return 1;
-			}
-			pos_y -= step_;
-			steps.push_back(0);
+					return 1;
+				}
+				pos_y -= step_;
+				steps.push_back(0);
 		
-			break;
-		case 1:
-			if(pos_x > field_size - step_){
-				std::cout << "Field overflow." << std::endl;
+				break;
+			case 1:
+				if(pos_x > field_size - step_ - 1){
+					std::cout << "Field overflow." << std::endl;
 
-				return 1;
-			}
-			pos_x += step_;
-			steps.push_back(1);
+					return 1;
+				}
+				pos_x += step_;
+				steps.push_back(1);
 
-			break;
-		case 2:
-			if(pos_y > field_size - step_){
-				std::cout << "Field overflow." << std::endl;
+				break;
+			case 2:
+				if(pos_y > field_size - step_ - 1){
+					std::cout << "Field overflow." << std::endl;
 
-				return 1;
-			}
-			pos_y += step_;
-			steps.push_back(2);
+					return 1;
+				}
+				pos_y += step_;
+				steps.push_back(2);
 
-			break;
-		case 3:
-			if(pos_x < step_){
-				std::cout << "Field overflow." << std::endl;
+				break;
+			case 3:
+				if(pos_x < step_){
+					std::cout << "Field overflow." << std::endl;
 
-				return 1;
-			}
-			pos_x -= step_;
-			steps.push_back(3);
+					return 1;
+				}
+				pos_x -= step_;
+				steps.push_back(3);
 
-			break;
+				break;
+		}
+	}catch(std::bad_alloc& e){
+		std::cout << "Memory allocation error" << std::endl;
+
+		return 1;
 	}
 
 	return 0;
@@ -89,7 +95,7 @@ void LangtonAnt::turnAnt(uint8_t way_){
 }
 
 void LangtonAnt::updateField(void){
-	field[pos_y][pos_x] = 1 - readColor();
+	field[pos_y][pos_x] = !field[pos_y][pos_x];
 }
 
 bool LangtonAnt::readColor(void){
