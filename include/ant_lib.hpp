@@ -23,6 +23,7 @@ class LangtonAnt{
 		
 		bool **field;
 		uint8_t direction;
+		uint64_t loop_len, branch_len;
 	private:
 		uint16_t field_size;
 		std::vector<uint8_t> steps;
