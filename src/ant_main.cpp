@@ -9,7 +9,8 @@
 
 int main(int argc_, char *argv_[]){
 	uint16_t interval, jump_step;
-	ofstream result_csv;
+	uint16_t count = 0u;
+	std::ofstream result_csv;
 	LangtonAnt ant(SIZE);
 
 	std::cout << "interval:";
@@ -21,7 +22,7 @@ int main(int argc_, char *argv_[]){
 
 	result_csv << "field, branch, loop" << std::endl;
 
-	for(uint8_t i=0u; i<256; i++){
+	for(uint16_t i=0u; i<256; i++){
 		ant.resetAnt();
 
 		ant.field[(SIZE>>1)-1][(SIZE>>1)-1] = (bool)(0x01 & (i >> 7));
@@ -33,17 +34,28 @@ int main(int argc_, char *argv_[]){
 		ant.field[(SIZE>>1)+1][SIZE>>1] = (bool)(0x01 & (i >> 1));
 		ant.field[(SIZE>>1)+1][(SIZE>>1)+1] = (bool)(0x01 & i);
 
+		count = 0u;
+
 		while(true){
 			try{
-				if(ant.readColor() == BLACK){
-					ant.turnAnt(RIGHT);
-				}else{
-					ant.turnAnt(LEFT);
-				}
+				count = (count + 1) % interval;
 
-				ant.updateField();
-				if(ant.moveAnt(1, ant.direction) == 1){
-					break;
+				if(count != 0){
+					if(ant.readColor() == BLACK){
+						ant.turnAnt(RIGHT);
+					}else{
+						ant.turnAnt(LEFT);
+					}
+
+					ant.updateField();
+					if(ant.moveAnt(1, ant.direction) == 1){
+						break;
+					}
+				}else{
+					ant.updateField();
+					if(ant.moveAnt(jump_step, ant.direction) == 1){
+						break;
+					}
 				}
 			}catch(std::exception& e){
 				std::cerr << "!" << e.what() << std::endl;
@@ -51,7 +63,7 @@ int main(int argc_, char *argv_[]){
 			}
 		}
 
-		ant.displayShape("0_0_" + std::to_string(i) + ".png");
+		ant.displayShape(std::to_string(interval) + "_" + std::to_string(jump_step) + "_" + std::to_string(i) + ".png");
 
 		if(ant.checkLoop(0,2) == 0){
 			result_csv << std::to_string(i) << ", " << std::to_string(ant.branch_len) << ", " << std::to_string(ant.loop_len) << std::endl;
