@@ -5,7 +5,7 @@
 #include <string>
 #include <fstream>
 
-#define SIZE 2048
+#define SIZE 20000
 
 int main(int argc_, char *argv_[]){
 	uint16_t interval, jump_step;
