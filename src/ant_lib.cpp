@@ -233,6 +233,16 @@ int LangtonAnt::checkLoop(uint32_t start_branch_, uint32_t start_loop_){
 		}
 	}
 
+	for(int i=0; i < branch_len+1; i++){
+		std::cout << (int)steps[i] << ',';
+	}
+	std::cout << std::endl;
+
+	for(int i=branch_len+1; i < branch_len+1+10*loop_len; i++){
+		std::cout << (int)steps[i] << ',';
+	}
+	std::cout << std::endl;
+
 	std::cout << branch_len+1 << '\t' << loop_len << std::endl;
 
 	return 0;
