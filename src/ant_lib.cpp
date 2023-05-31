@@ -1,6 +1,7 @@
 #include <ant_lib.hpp>
 
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <string>
 #include <vector>
@@ -233,17 +234,29 @@ int LangtonAnt::checkLoop(uint32_t start_branch_, uint32_t start_loop_){
 		}
 	}
 
-	for(int i=0; i < branch_len+1; i++){
-		std::cout << (int)steps[i] << ',';
-	}
-	std::cout << std::endl;
-
-	for(int i=branch_len+1; i < branch_len+1+10*loop_len; i++){
-		std::cout << (int)steps[i] << ',';
-	}
-	std::cout << std::endl;
-
 	std::cout << branch_len+1 << '\t' << loop_len << std::endl;
+	
+	std::ofstream branch_file;
+	branch_file.open("../branch.csv", std::ios::out);
+	if(!branch_file){
+		std::cerr << "branch file open failed." << std::endl;
+		return 0;
+	}
+	branch_file << (int)steps[0];
+	for(int i=1; i < branch_len+1; i++){
+		branch_file << ',' << (int)steps[i];
+	}
+
+	std::ofstream loop_file;
+	loop_file.open("../loop.csv", std::ios::out);
+	if(!loop_file){
+		std::cerr << "loop file open failed." << std::endl;
+		return 0;
+	}
+	loop_file << (int)steps[branch_len+1];
+	for(int i=branch_len+2; i < branch_len+1+10*loop_len; i++){
+		loop_file << ',' << (int)steps[i];
+	}
 
 	return 0;
 }

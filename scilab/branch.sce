@@ -1,7 +1,10 @@
 branch = csvRead("../branch.csv");
-branch_fft = fft(branch);
 
 data_size = size(branch, '*');
+
+win = window('hm', data_size);
+branch_fft = fft(branch .* win);
+
 f_data = (1:data_size/2) / data_size;
 
 clf;
