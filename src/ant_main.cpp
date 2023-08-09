@@ -10,6 +10,7 @@
 int main(int argc_, char *argv_[]){
 	uint16_t interval, jump_step;
 	uint16_t count = 0u;
+	uint16_t start_field = 0u;
 	std::ofstream result_csv;
 	LangtonAnt ant(SIZE);
 
@@ -17,12 +18,14 @@ int main(int argc_, char *argv_[]){
 	std::cin >> interval;
 	std::cout << "jump step:";
 	std::cin >> jump_step;
+	std::cout << "start:";
+	std::cin >> start_field;
 
 	result_csv.open(std::to_string(interval) + "_" + std::to_string(jump_step) + ".csv", std::ios_base::out);
 
 	result_csv << "field, branch, loop" << std::endl;
 
-	for(uint16_t i=0u; i<256; i++){
+	for(uint16_t i=start_field; i<256; i++){
 		ant.resetAnt();
 
 		ant.field[(SIZE>>1)-1][(SIZE>>1)-1] = (bool)(0x01 & (i >> 7));
