@@ -33,7 +33,7 @@ LangtonAnt::LangtonAnt(uint16_t field_size_){
 
 int LangtonAnt::moveAnt(uint16_t step_, uint8_t direction_){
 	if(steps.size() >= steps.max_size()){
-		std::cout << "Step overflow." << std::endl;
+//		std::cout << "Step overflow." << std::endl;
 
 		return 1;
 	}
@@ -42,7 +42,7 @@ int LangtonAnt::moveAnt(uint16_t step_, uint8_t direction_){
 		switch(direction_){
 			case 0:
 				if(pos_y < step_){
-					std::cout << "Field overflow." << std::endl;
+			//		std::cout << "Field overflow." << std::endl;
 
 					return 1;
 				}
@@ -52,7 +52,7 @@ int LangtonAnt::moveAnt(uint16_t step_, uint8_t direction_){
 				break;
 			case 1:
 				if(pos_x > field_size - step_ - 1){
-					std::cout << "Field overflow." << std::endl;
+			//		std::cout << "Field overflow." << std::endl;
 
 					return 1;
 				}
@@ -62,7 +62,7 @@ int LangtonAnt::moveAnt(uint16_t step_, uint8_t direction_){
 				break;
 			case 2:
 				if(pos_y > field_size - step_ - 1){
-					std::cout << "Field overflow." << std::endl;
+			//		std::cout << "Field overflow." << std::endl;
 
 					return 1;
 				}
@@ -72,7 +72,7 @@ int LangtonAnt::moveAnt(uint16_t step_, uint8_t direction_){
 				break;
 			case 3:
 				if(pos_x < step_){
-					std::cout << "Field overflow." << std::endl;
+			//		std::cout << "Field overflow." << std::endl;
 
 					return 1;
 				}
