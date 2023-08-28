@@ -4,28 +4,34 @@
 #include <cstdlib>
 #include <string>
 #include <fstream>
+#include <random>
 
 #define SIZE 2048
 
 int main(int argc_, char *argv_[]){
 	uint32_t interval, jump_step;
 	uint32_t count = 0u;
-	uint32_t start_field = 0u;
+	uint32_t max_val = 100000u;
+	uint32_t i = 0;
 	std::ofstream result_csv;
 	LangtonAnt ant(SIZE);
 
-	std::cout << "interval:";
-	std::cin >> interval;
-	std::cout << "jump step:";
-	std::cin >> jump_step;
-	std::cout << "start:";
-	std::cin >> start_field;
+	std::random_device seed_gen;
+	std::mt19937 engine(seed_gen());
+
+	std::uniform_int_distribution<uint32_t> dist1(0, 100000000);
+
+	interval = atoi(argv_[1]);
+	jump_step = atoi(argv_[2]);
+	max_val = atoi(argv_[3]);
 
 	result_csv.open(std::to_string(interval) + "_" + std::to_string(jump_step) + ".csv", std::ios_base::out);
 
 	result_csv << "field, branch, loop" << std::endl;
 
-	for(uint32_t i=start_field; i<16777216; i++){
+	for(uint32_t k=0; k<max_val; k++){
+		i = dist1(engine);
+
 		ant.resetAnt();
 
 		ant.field[(SIZE>>1)-2][(SIZE>>1)-2] = (bool)(0x01 & (i >> 23));
